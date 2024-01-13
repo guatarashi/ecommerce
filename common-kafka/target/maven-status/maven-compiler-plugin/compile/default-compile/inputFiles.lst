@@ -1,0 +1,5 @@
+/home/gustavo/gitEstudoKafka/ecommerce/common-kafka/src/main/java/br/com/atarashi/ecommerce/GsonDeserializer.java
+/home/gustavo/gitEstudoKafka/ecommerce/common-kafka/src/main/java/br/com/atarashi/ecommerce/KafkaService.java
+/home/gustavo/gitEstudoKafka/ecommerce/common-kafka/src/main/java/br/com/atarashi/ecommerce/GsonSerializer.java
+/home/gustavo/gitEstudoKafka/ecommerce/common-kafka/src/main/java/br/com/atarashi/ecommerce/ConsumerFunction.java
+/home/gustavo/gitEstudoKafka/ecommerce/common-kafka/src/main/java/br/com/atarashi/ecommerce/KafkaDispatcher.java
