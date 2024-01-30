@@ -4,10 +4,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
+import java.util.UUID;
 
 public class CreateUserService {
 
@@ -16,9 +15,14 @@ public class CreateUserService {
     public CreateUserService() throws SQLException {
         String url = "jdbc:sqlite:users_database.db";
         this.connection = DriverManager.getConnection(url);
-        this.connection.createStatement().execute("create table Users (" +
-                "uuid varchar(200) primary key," +
-                "email varchar(200))");
+        try {
+            this.connection.createStatement().execute("create table Users (" +
+                    "uuid varchar(200) primary key," +
+                    "email varchar(200))");
+        } catch (SQLException ex) {
+            // be careful, the sql could be wrong, be reallllly careful
+            ex.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws SQLException {
@@ -46,7 +50,7 @@ public class CreateUserService {
     private void insertNewUser(String email) throws SQLException {
         var insert = connection.prepareStatement("insert into Users (uuid, email) values(?,?)");
 
-        insert.setString(1, "uuid");
+        insert.setString(1, UUID.randomUUID().toString());
         insert.setString(2, email);
         insert.execute();
 
@@ -55,9 +59,9 @@ public class CreateUserService {
     }
 
     private boolean isNewUser(String email) throws SQLException {
-        var exists = connection.prepareStatement("select uuid  from Users where email = ? limit 1");
+        var exists = connection.prepareStatement("select uuid from Users where email = ? limit 1");
         exists.setString(1, email);
         var results = exists.executeQuery();
-        return results.next();
+        return !results.next();
     }
 }
