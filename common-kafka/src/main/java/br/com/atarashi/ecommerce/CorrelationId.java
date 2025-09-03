@@ -4,8 +4,8 @@ public class CorrelationId {
 
     private final String id;
 
-    CorrelationId() {
-        id = java.util.UUID.randomUUID().toString();
+    CorrelationId(String title) {
+        id = title + "(" + java.util.UUID.randomUUID() + ")";
     }
 
     @Override
@@ -13,5 +13,9 @@ public class CorrelationId {
         return "CorrelationId{" +
                 "id='" + id + '\'' +
                 '}';
+    }
+
+    public CorrelationId continueWith(String title) {
+        return new CorrelationId(id + "-" + title);
     }
 }
