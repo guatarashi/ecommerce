@@ -1,5 +1,6 @@
 package br.com.atarashi.ecommerce;
 
+import br.com.atarashi.ecommerce.dispatcher.KafkaDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

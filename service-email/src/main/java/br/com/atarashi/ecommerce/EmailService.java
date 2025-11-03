@@ -1,5 +1,6 @@
 package br.com.atarashi.ecommerce;
 
+import br.com.atarashi.ecommerce.consumer.KafkaService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.util.Map;

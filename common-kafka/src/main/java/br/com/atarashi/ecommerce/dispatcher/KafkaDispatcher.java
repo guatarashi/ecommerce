@@ -1,5 +1,7 @@
-package br.com.atarashi.ecommerce;
+package br.com.atarashi.ecommerce.dispatcher;
 
+import br.com.atarashi.ecommerce.CorrelationId;
+import br.com.atarashi.ecommerce.Message;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -35,8 +37,8 @@ public class KafkaDispatcher<T> implements Closeable {
         future.get();
     }
 
-    Future<RecordMetadata> sendAsync(String topic, String key, CorrelationId id, T payload) {
-        var value = new Message<>(id, payload);
+    public Future<RecordMetadata> sendAsync(String topic, String key, CorrelationId id, T payload) {
+        var value = new Message<>(id.continueWith("_" + topic), payload);
         var record = new ProducerRecord<>(topic, key, value);
         Callback callback = (data, ex) -> {
             if (ex != null) {

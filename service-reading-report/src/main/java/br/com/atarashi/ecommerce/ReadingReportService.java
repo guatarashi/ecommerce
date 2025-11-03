@@ -1,14 +1,12 @@
 package br.com.atarashi.ecommerce;
 
+import br.com.atarashi.ecommerce.consumer.KafkaService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 public class ReadingReportService {

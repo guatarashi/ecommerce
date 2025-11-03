@@ -1,5 +1,7 @@
 package br.com.atarashi.ecommerce;
 
+import br.com.atarashi.ecommerce.consumer.KafkaService;
+import br.com.atarashi.ecommerce.dispatcher.KafkaDispatcher;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.math.BigDecimal;

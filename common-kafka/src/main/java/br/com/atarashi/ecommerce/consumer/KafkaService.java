@@ -1,5 +1,8 @@
-package br.com.atarashi.ecommerce;
+package br.com.atarashi.ecommerce.consumer;
 
+import br.com.atarashi.ecommerce.Message;
+import br.com.atarashi.ecommerce.dispatcher.GsonSerializer;
+import br.com.atarashi.ecommerce.dispatcher.KafkaDispatcher;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
