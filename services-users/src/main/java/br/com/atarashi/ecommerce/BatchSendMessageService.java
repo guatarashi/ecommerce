@@ -27,7 +27,7 @@ public class BatchSendMessageService {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ExecutionException, InterruptedException {
         var batchService = new BatchSendMessageService();
         try(var service = new KafkaService<>(BatchSendMessageService.class.getSimpleName(),
                 "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS",
@@ -45,11 +45,18 @@ public class BatchSendMessageService {
         var message = record.value();
         System.out.println("Topic: " + message.getPayload());
 
+        //If colocado para força enviar o deadletter
+//        if(true) {
+//            System.out.println("Simulating erro de processamento");
+//            throw new RuntimeException("Deu erro feio mesmo");
+//        }
+
         for (User user : getAllUsers()) {
-            userDispatcher.send("ECOMMERCE_USER_GENERATE_READING_REPORT",
+            userDispatcher.sendAsync("ECOMMERCE_USER_GENERATE_READING_REPORT",
                     user.getUuid(),
                     message.getId().continueWith(BatchSendMessageService.class.getSimpleName()),
                     user);
+            System.out.println("Acho que Enviei para " + user);
         }
     }
 
